@@ -24,8 +24,8 @@ function App() {
       // console.log("inside the useEffect");  
       if(prediction){
         console.log("prediction had changed and it is prediction: ", prediction);
-        console.log("prediction.bestMatch: ", prediction.bestMatch);
-        console.log("prediction.results[0].species.scientificNameWithoutAuthor: ",prediction.results[0].species.scientificNameWithoutAuthor);
+        console.log("prediction.plantNetData.bestMatch: ", prediction.plantNetData.bestMatch);
+        console.log("prediction.plantNetData.results[0].species.scientificNameWithoutAuthor: ",prediction.plantNetData.results[0].species.scientificNameWithoutAuthor);
       }
       
     }, [prediction]);
@@ -106,7 +106,18 @@ function App() {
   };
 
 
+  const backbutton = async() => {
+    console.log("inside the backButton");
+    // setImagePreviewUrl(null);
+    setPrediction(null);
+    setSelectedFile(null);
+    setUploadSuccess(false);
+    setLoading(null);
+  }
 
+  const profileDropdown = async() =>{
+    console.log("the profile icon has been clicked");
+  }
 
 
 
@@ -115,79 +126,117 @@ function App() {
 
       <div className="header-bar">
         <img src="/logo.png" alt="Plant Detector Logo" className="logo" />  
-        <h1>EcoLens</h1>        
+        <h1>EcoLens</h1>
+
+        <img src="/account.png" alt="profile-icon" className="profile-icon" onClick={profileDropdown} />        
       </div>
   
     
       {prediction ? (
         <div className="results-page">
-          {/* <h2>Detection Results</h2> */}
-          {/* We will add more here later to display the results */}
-          {/* <pre>{JSON.stringify(prediction, null, 2)}</pre> */}
 
           {imagePreviewUrl ? (
-            <div className='uploaded-image-container'>
-              
-              <div className="left-side-container">
-                <img src={imagePreviewUrl} alt='uploaded plant' className='uploaded-image' />
-                  
-                {/* NOT provided by the PlantNet server ***********************************************************************/}
-                <p>Medicinal Uses:<span className="p_content">(the_medicinal_uses_we_get_from_the_backend)</span> </p>
-                {/* NOT provided by the PlantNet server ***********************************************************************/}
-                <p>Edible:<span className="p_content">(the_edible_we_get_from_the_backend)</span></p> 
-
-              </div>
-
-              <div className="right-side-container">
-
-                {/* provided by the PlantNet server: */}
-                <p className="scientific_header">{prediction.bestMatch}</p>
-
-                {/* provided by the PlantNet server */}
-                <p>Common names: 
-                  <span className="p_content">
-                    {prediction.results[0].species.commonNames.map((name, index)=>
-                      <span key={index}>
-                        {name}
-                        {index < prediction.results[0].species.commonNames.length - 1 ? ", " : " "}
-                      </span>
-                      )
+            <>  
+              <img src="/left-arrow.png" alt="back icon" className="back-icon" onClick={backbutton}/> 
+              <div className='uploaded-image-container'>
+                
+                <div className="left-side-container">
+                  <img src={imagePreviewUrl} alt='uploaded plant' className='uploaded-image' />
                     
-                    }
-                  </span>
-                </p>
 
-                {/* NOT provided by the PlantNet server ************************************************************************/}
-                <p>Description: <span className="p_content">(the_descriptions_we_get_from_the_backend)</span></p>
+                  {/* NOT provided by the PlantNet server but from the Perenual API***********************************************/}   
+                  {/* the reason we are using empty <></> => called React Fragment, is because in the condition we cant have multiple <p> elements  */}
+                  {prediction.perenualData ? (
+                    <>
+                      <p>Sunlight :
+                        <span className="p_content">
+                          {prediction.perenualData.sunlight.map((name, index)=>
+                            <span key={index}>
+                              {name}
+                              {index < prediction.perenualData.sunlight.length -1 ? ", " : " "}
+                            </span>  
+                        )}
+                        </span>
+                      </p>
+                      {/* NOT provided by the PlantNet server but from the Perenual API***********************************************/}     
+                      <p>Watering: <span className="p_content">{prediction.perenualData.watering || null}</span></p>
+                      {/* NOT provided by the PlantNet server but from the Perenual API***********************************************/}     
+                      <p>Edible Fruit: <span className="p_content">{prediction.perenualData.edible_fruit || null}</span></p>
+                    </>  
+                  ): (
+                    <p style={{ fontStyle : 'italic'}}>The extra data from the Perenual API are not anymore available for today(free-usage-limit: 100 API calls/day), they will be again tomorrow!</p>
+                  )}  
+                    
 
-                {/* provided by the PlantNet server ************************************************************************/}
-                <p>Family: <span className="p_content">{prediction.results[0].species.family.scientificName}</span></p>
+                </div>
 
-                {/* provided by the PlantNet server ************************************************************************/}
-                <p>Confidence Score: <span className="p_content">{prediction.results[0].score}</span></p>
+                <div className="right-side-container">
 
-                {/* NOT provided by the PlantNet server ************************************************************************/}
-                <p>Distribution: <span className="p_content">(the_distribution_we_get_from_the_backend)</span></p>
+                  {/* provided by the PlantNet server: */}
+                  <p className="scientific_header">{prediction.plantNetData.bestMatch}</p>
 
-                {/* NOT provided by the PlantNet server ************************************************************************/}     
-                {/* <p>Ecology: <span className="p_content">(the_ecology_we_get_from_the_backend)</span></p> */}
+                  {/* provided by the PlantNet server */}
+                  {/* the map is used to iterate arrays:  */}
+                  <p>Common names: 
+                    <span className="p_content">
+                      {prediction.plantNetData.results[0].species.commonNames.map((name, index)=>
+                        <span key={index}>
+                          {name}
+                          {index < prediction.plantNetData.results[0].species.commonNames.length - 1 ? ", " : " "}
+                        </span>
+                        )
+                      
+                      }
+                    </span>
+                  </p>
 
-                {/* NOT provided by the PlantNet server ************************************************************************/} 
-                <p>Toxicity: <span className="p_content">(the_toxicity_we_get_from_the_backend)</span></p>
 
-              </div>
+                  {/* provided by the PlantNet server ************************************************************************/}
+                  <p>Confidence Score: <span className="p_content">{ (prediction.plantNetData.results[0].score) * 100 }%</span></p>
+                  {/* provided by the PlantNet server ************************************************************************/}
+                  <p>Genus: <span className="p_content">{prediction.plantNetData.results[0].species.genus.scientificNameWithoutAuthor}</span></p>
 
 
-            </div>
+
+                  {prediction.perenualData ? (
+                    <>
+                      {/* NOT provided by the PlantNet server but from the Perenual API***************************************************/}
+                      <p>Origin: <span className="p_content">{prediction.perenualData.origin || null}</span></p>
+                      {/* NOT provided by the PlantNet server but from the Perenual API***************************************************/}
+                      <p>Flowering Season: <span className="p_content">{prediction.perenualData.flowering_season || null}</span></p>
+                      {/* NOT provided by the PlantNet server but from the Perenual API***************************************************/} 
+                      <p>Hardiness: <span className="p_content">{prediction.perenualData.hardiness || null}</span></p>
+                      {/* NOT provided by the PlantNet server but from the Perenual API***************************************************/} 
+                      <p>Poisonous to humans: <span className="p_content">{prediction.perenualData.poisonous_to_humans || null}</span></p>
+                      {/* NOT provided by the PlantNet server but from the Perenual API***************************************************/} 
+                      <p>Maintenance: <span className="p_content">{prediction.perenualData.maintenance || null}</span></p>
+                    </>
+                  ) : (
+                      <p style={{ fontStyle : 'italic'}}>The extra data from the Perenual API are not anymore available for today(free-usage-limit: 100 API calls/day), they will be again tomorrow!</p>
+
+                  )}  
+                    
+
+                </div>
+              </div>     
+
+              <div className='extra-buttons-container'>      
+
+                {/* extra buttons that will use a relational database */}
+                <button className="extra-button">Related Articles</button>
+                
+                <button className="extra-button">User's Comments</button>
+
+              </div>    
+
+
+            </> 
             ) : (
               <p>No image</p>
 
-
             )
           }
-
-
-            </div>
+        </div>
           ) : (   
             <div className="main-content">
               <div className="upload-box">
@@ -220,7 +269,7 @@ function App() {
                   if the error has a value inside like the 'Error during detection:' we wrote earlier then the expression continues and the <p> style gets rendered */}
               {error && <p style={{ color: 'red' }}>Error: {error}</p>}
 
-        </div>
+            </div>
 
       )}
       
