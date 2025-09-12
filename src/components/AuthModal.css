@@ -1,0 +1,121 @@
+.modal-overlay{
+    position : fixed;           /* this takes the content of the normal flow=the end of the app.js page, and */
+                                /* places it relative to the viewport   */
+    top: 0;
+    left: 0;                       /*the properties stretch the entire container to cover the full screen*/
+    right: 0;
+    bottom: 0;
+
+    background-color: rgba(0, 0, 0, 0.5);      /* makes the background be semi-transperent grey so that it is still visible but the user can */
+                                                 /* still focus on the sign-up page */
+    display: flex;                              /* These Flexbox properties are used to perfectly center */
+    align-items: center;                          /*    the modal's content box, both horizontally and vertically, within the screen. */
+    justify-content: center;
+    z-index: 1000;                          /*this ensures that the modal appears on top of all the other elements on the screen */
+}
+
+/* */
+
+.auth-box {
+  /* background: #fff; */
+  background-color: rgb(206, 224, 195); /* This is a shade of green */
+  /* padding: 2rem;                            to move the header a little down */
+  border-radius: 8px;
+  width: 450px;
+  height: 500px;
+  text-align: center;                      /* to move the text to the center*/
+
+}
+
+.title-container{
+    display: flex;
+    align-items: center;
+    margin-left: 70px;
+    margin-top: 18px;
+}
+
+.title-container h1{
+  font-size: 23px;
+  font-family:Georgia, 'Times New Roman', Times, serif
+
+}
+
+.tabs{
+  margin-top: 45px;
+
+}
+
+.tabs-button{
+  cursor: pointer;
+  padding: 2px;  
+  height: 35px;
+  width: 190px;
+  background-color: #f0f0f0;
+  color: black;
+  border: none;
+  font-family:Georgia, 'Times New Roman', Times, serif;
+}
+
+/* .tabs-button active-tab{
+  background-color: #4CAF50;
+  color: #fff;
+
+} */
+
+.active-tab{
+  background-color: #4CAF50;
+  color: #fff;
+
+} 
+
+.form-group{
+    margin-top: 20px;
+}
+
+.form-group input{
+    width: 380px;
+    height: 45px;
+    border-radius: 5px;
+    padding: .6rem;
+    text-align: center;
+    font-size: 16px;
+}
+
+.sign-up-buttons{
+    cursor: pointer;
+    margin-top: 20px;
+    width: 380px;
+    height: 35px;
+    /* padding: 6px; */
+    background-color: #4CAF50;
+    border-radius: 4px;
+    font-size: 15px;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    border: none;
+
+}
+
+.sign-up-buttons:active{
+    color: #fff;
+}
+
+.close-window-icon{
+    margin-top: 10px;
+    margin-left: 400px;
+    cursor: pointer;
+}
+
+.switch{
+    margin-top: 10px;
+    font-size: 13px;
+    font-family:Georgia, 'Times New Roman', Times, serif
+
+}
+
+.forgot-password{
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 15px;
+    margin-top: 10px;
+    margin-left: 270px;
+
+}

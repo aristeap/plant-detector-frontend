@@ -49,14 +49,53 @@ body {
 }
 
 .header-bar h1{
+  font-family:Georgia, 'Times New Roman', Times, serif;
   font-size: 1.6em;
 }
 
 .header-bar .profile-icon{
-  margin-left: 1330px;
+  margin-left: 1300px;
   cursor: pointer;
   height: 35px;;
 
+}
+
+
+.dropdown-menu ul{
+   list-style: none;
+}
+
+.dropdown-menu li{
+  border-bottom: 1px solid #5a9e52; /* Adds a solid separator line */
+}
+
+.dropdown-menu{
+  position: absolute;
+  background-color: #75c268;
+  top: 90%;
+  right: 2px;
+  border: 1px solid #1a1a1a;
+  border-radius: 0px;
+  margin-top: 4px;
+  min-width: 140px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+  z-index: 10;
+}
+
+.dropdown-item{
+  width: 100%;
+  color: #ffffff;
+  padding: 12px 16px;
+  background: none;
+  border: none;
+  text-align: left;
+  font-size: 14px;
+  cursor: pointer;
+
+}
+
+.dropdown-item:hover{
+  background-color: rgb(73, 136, 34); /* This is a darker shade of green */
 }
 
 /* .main-content {
@@ -134,18 +173,15 @@ body {
                                       /* BUT we cant only write align-items: flex-start on the results-page and be done with it, ,we have to make it a flex container with  display: flex;  */
   
   background-color: #fff;
-  /* padding-right: 450px;            for the sizing
-  padding-left: 550px;              for the sizing
-  padding-bottom: 350px;            for the sizing */
-
-  width: 1150px;
+  width: 1100px;
   height: 600px;
   padding: 1px;
   border-radius: 8px;               /*for rounded edges */
   display: flex;
   align-items: flex-start;
-  margin-right: 220px;
+  /* margin-right: 220px; */
   margin-left: 70px;
+  overflow: hidden;               /* Hide anything that goes beyond the container's edges */
 }
 
 .uploaded-image{
@@ -225,18 +261,25 @@ body {
 
 .extra-buttons-container{
  display: flex;
-  flex-direction: column;
+flex-direction: column;
 }
 
 .extra-button{  
-  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 100px;
   background-color: #4CAF50;
   color: white;
-  padding: 8px 8px;
+  padding: 10px 10px;
   border: none ;                /* not to have look much like a button */
   border-radius: 8px;           /* to make the edges circled and not like a box */
   font-size: 1.1em;
   cursor: pointer;
-  /* margin-left: 10px; */
-  width: 80%;
+  margin-left: 45px; 
+  width: 100%;
+}
+
+.book-plant-icon{
+  width: 20px;
+  height: 20px;
 }
