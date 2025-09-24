@@ -1,0 +1,67 @@
+.modal-overlay{
+    position: fixed;
+
+    top: 0;
+    left: 0;                       /*the properties stretch the entire container to cover the full screen*/
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);      /* makes the background be semi-transperent grey so that it is still visible but the user can */
+                                                 /* still focus on the sign-up page */
+    display: flex;                              /* These Flexbox properties are used to perfectly center */
+    align-items: center;                          /*    the modal's content box, both horizontally and vertically, within the screen. */
+    justify-content: center;
+    z-index: 1000;
+
+}
+
+.all-articles-box{
+    background-color: white; /* This is a shade of green */
+    width: 950px;
+    height: 600px;
+    border-radius: 8px;
+    text-align: center;
+    align-items: center;
+
+}
+
+.articles-header h1{
+    font-size: 23px;
+}
+
+.close-window-icon{
+    margin-top: 10px;
+    margin-left: 900px;
+    cursor: pointer;
+}
+
+.articles-box{
+    margin-top: 20px;
+    background-color: rgb(206, 224, 195); /* This is a shade of green */
+    height: 120px;
+    display: flex;
+    align-items: flex-start;
+}
+
+.add-article-button{
+    cursor: pointer;
+    color: white;
+    margin-top: 20px;
+    margin-right: 600px;
+    width: 320px;
+    height: 35px;
+    /* padding: 6px; */
+    background-color: #4CAF50;
+    border-radius: 4px;
+    font-size: 15px;
+    border: none;
+
+}
+
+.uploaded-image-articles{
+    max-width: 150px;
+    height: 120px;
+}
+
+.articles-title{
+    font-size: 15px;
+}

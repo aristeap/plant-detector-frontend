@@ -60,6 +60,9 @@ body {
 
 }
 
+.header-bar .profile-icon:hover{
+  transform : scale(1.30);  /*slightly enlarge on hover  */
+}
 
 .dropdown-menu ul{
    list-style: none;
@@ -277,6 +280,11 @@ flex-direction: column;
   cursor: pointer;
   margin-left: 45px; 
   width: 100%;
+}
+
+.extra-button:hover{
+  transform : scale(1.10);  /*slightly enlarge on hover  */
+
 }
 
 .book-plant-icon{

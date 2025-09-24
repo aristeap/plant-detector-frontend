@@ -1,44 +1,11 @@
 import React, {useEffect, useState} from 'react'; 
 import './App.css';
 import AuthModal from './components/AuthModal';
+import ArticleModal from './components/ArticleModal';
 import { upload } from '@testing-library/user-event/dist/upload';
 import Confetti from 'react-confetti'; // Import the library
 
 function App() {
-
-
-  const samplePrediction = {
-    plantNetData: {
-      bestMatch: "Hibiscus coccineus Walter",
-      results: [
-        {
-          score: 0.94477,
-          species: {
-            commonNames: ["Scarlet rosemallow", "Texas Star Hibiscus", "Scarlet Rose-Mallow"],
-            genus: { scientificNameWithoutAuthor: "Hibiscus" },
-            scientificNameWithoutAuthor: "Hibiscus coccineus"
-          }
-        }
-      ]
-    },
-    perenualData: {
-      "id": 7690,
-      "scientific_name": "Rosmarinus officinalis",
-      "sunlight": [
-        "full sun",
-        "part sun"
-      ],
-      "watering": "average",
-      "edible_fruit": "false",
-      "common_name": "rosemary",
-      "origin": ["Southeastern U.S."],
-      "flowering_season": ["Summer", "Fall"],
-      "hardiness": {"min": 6, "max": 9},
-      "care_level": "Medium",
-      "poisonous_to_humans": 0,
-      "maintenance": "low"
-    }
-  };
 
   //states: ------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -55,6 +22,8 @@ function App() {
   
   const [isDropdownOpen, setIsDropdownOpen] = useState(false); // NEW: State for the dropdown menu
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false)
+
+  const [isArticleOpen, setArticleOpen] = useState(false);
 
   const [showConfetti, setShowConfetti] = useState(false);
   const flowerImage = new Image();
@@ -118,7 +87,7 @@ function App() {
     try {
       // Use the proxy to call our PHP backend .
       //-----------------we have not yet written the /api/identify-plant.php---------------
-      const response = await fetch('/api/identify-plant.php', {
+      const response = await fetch('https://plant-detector-backend.onrender.com/identify-plant.php', {
         method: 'POST',
         body: formData,
       });
@@ -173,6 +142,14 @@ function App() {
     setIsAuthModalOpen(false);
   }
 
+  const openArticleModal = async() =>{
+    setArticleOpen(true);
+  };
+
+  const closeArticleModal = async() =>{
+    setArticleOpen(false);
+  }
+
   const handleConfetti =() =>{
     setShowConfetti(true);
     setTimeout( () => {
@@ -207,7 +184,7 @@ function App() {
         <h1>EcoLens</h1>
 
         <div className="profile-container">
-          <img src="/account.png" alt="profile-icon" className="profile-icon" onClick={profileDropdown} /> 
+          <img src="/user.png" alt="profile-icon" className="profile-icon" onClick={profileDropdown} /> 
           {isDropdownOpen && (
             <div className="dropdown-menu">
               <ul>
@@ -309,7 +286,7 @@ function App() {
               <div className='extra-buttons-container'>      
 
                 {/* extra buttons that will use a relational database */}
-                <button className="extra-button">Related Articles</button>
+                <button className="extra-button" onClick={openArticleModal}>Related Articles</button>
                 
                 <button className="extra-button">User's Comments</button>
 
@@ -363,6 +340,10 @@ function App() {
 
       {isAuthModalOpen && (
         <AuthModal isOpen={isAuthModalOpen} onClose={closeAuthModal} />
+      )}
+
+      {isArticleOpen &&(
+        <ArticleModal isOpen={isArticleOpen} onClose={closeArticleModal} scientificName={prediction.plantNetData.bestMatch} imageUrl={imagePreviewUrl} />
       )}
 
     </div>
