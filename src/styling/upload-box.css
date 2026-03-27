@@ -1,0 +1,68 @@
+.upload-box {
+  background: rgba(255, 255, 255, 0.4);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.8);    /*white border */ 
+  /* 2. Add the blur effect! This makes the header look like frosted glass. */
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px); /* Support for Safari */
+
+  padding: 15px 40px; /* Added more side padding to match the design spacing */
+  
+  /* 3. A very subtle bottom border helps define the edge without a heavy shadow. */
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  
+  /* 4. A lighter shadow makes it feel more modern. */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+
+  padding-right: 100px;
+  padding-left: 100px;
+  padding-bottom: 100px;
+  border-radius: 10px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  max-width: 600px;
+  margin-top: 100px;
+  display: flex;                  /*this make the icon inside be in the center bellow the <p>  */
+  flex-direction: column;
+  align-items: center; 
+  /* NEW: Add a minimum height to prevent the box from resizing when new elements appear */
+  min-height: 250px;
+
+}
+
+/* Style the paragraph text inside the box */
+.upload-box p {
+  font-size: 1.3em;
+  color:  rgb(73, 136, 34);
+  margin-bottom: 2em;
+  display: flex;
+  margin-top: 40px;
+
+}
+
+.upload-icon-label{
+  cursor: pointer;
+  display: inline-block; /* Allows margins/padding and proper alignment */
+
+}
+
+.upload-icon-label:hover .upload-icon{
+   transform : scale(1.10);  /*slightly enlarge on hover  */
+}
+
+.upload-icon {
+  align-items: center;
+}
+
+
+.detect-button {
+  margin-top: 10px;
+  background-color: #4CAF50;
+  color: white;
+  padding: 8px 10px;
+  border: none ;                /* not to have look much like a button */
+  border-radius: 8px;           /* to make the edges circled and not like a box */
+  font-size: 1.1em;
+  cursor: pointer;
+  margin-left: 180px;
+  width: 35%;
+}

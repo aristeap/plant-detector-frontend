@@ -1,0 +1,145 @@
+.header-bar {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.4);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.8);    /*white border */ 
+  /* 2. Add the blur effect! This makes the header look like frosted glass. */
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px); /* Support for Safari */
+
+  padding: 15px 40px; /* Added more side padding to match the design spacing */
+  
+  /* 3. A very subtle bottom border helps define the edge without a heavy shadow. */
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  
+  /* 4. A lighter shadow makes it feel more modern. */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.logo-section{
+    display: flex;
+    align-items: center;                /*this centers the contents of the div, which means the image and the text */
+    gap: 10px;
+}
+
+.logo-section .logo{
+  height: 40px; 
+  width: auto;
+  filter: brightness(0.9) contrast(1.1); 
+}
+
+.logo-section h1 {
+  margin: 0;  
+  color: #2d4f1e; 
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 1.4em;
+  font-weight: 700; /* Makes it look more like a professional brand logo */
+  letter-spacing: -0.5px;
+}
+
+.search-container{
+    position: relative;
+    display: flex;
+    align-items: center;
+    
+}
+
+.search-icon-inside{
+    position: absolute;             /*takes the icon out of the normal flow*/
+    top: 19%;
+    left: 2%;
+    opacity: 0.7;       /*makes it look 'faded'*/
+    pointer-events: none;           /*ensures the click goes through the icon to the input*/
+    padding-right: 5px;
+}
+
+.header-search-input{
+    width: 100%;
+    padding: 10px 400px 10px 40px;
+    border: none;       /*removes the black outside border line */
+    border-radius: 20px;    /* round edges*/
+    background: rgba(0, 0, 0, 0.05);        /*semi transperent */
+    font-size: 0.9rem;
+    outline: none;               /*removes the outline when you click it */
+}
+
+.header-search-input:focus{
+    background: rgba(0, 0, 0, 0.08); /* Darkens slightly when the user types */
+    box-shadow: 0 0 0 2px rgba(118, 160, 77, 0.2); /* A tiny green glow to match the brand */
+}
+
+
+/* 1. This handles the layout for both icons */
+.header-icons-group {
+    display: flex;
+    gap: 15px; /* Slightly increased for a more "airy" professional feel */
+    align-items: center;
+}
+
+/* 2. Target ALL images inside the icons group at once */
+.header-icons-group img {
+    height: 30px; /* Standardized height */
+    cursor: pointer;
+    transition: transform 0.2s ease; /* Makes the scaling smooth, not jumpy */
+}
+
+/* 3. One hover rule for all of them */
+.header-icons-group img:hover {
+    transform: scale(1.15);
+    opacity: 1; /* Highlights the icon when you're about to click */
+}
+
+
+
+
+.dropdown-menu{
+  position: absolute;
+  background-color: #75c268;
+  top: 100%; /* Puts it right below the icon container */
+  right: 0; /* Aligns the right edge of the dropdown with the right edge of the container */
+  /* REMOVED: border: 1px solid #1a1a1a; - The box-shadow is sufficient */
+  border-radius: 4px; /* Added slight rounding to corners */
+  margin-top: 8px; /* Added a bit more separation from the icon */
+  min-width: 180px; /* Made it slightly wider for better readability */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3); /* Updated shadow for better depth */
+  overflow: hidden; /* Ensures the button hover doesn't bleed outside the border-radius */
+  z-index: 10;
+}
+
+.dropdown-menu ul{
+   list-style: none;
+   margin: 0; /* REMOVED: default margin */
+   padding: 0; /* UPDATED: Removed default list padding */
+}
+
+.dropdown-menu li{
+  border-bottom: 1px solid #5a9e52; /* Adds a solid separator line */
+}
+
+.dropdown-menu li:last-child {
+  border-bottom: none; /* Removed separator from the last item */
+}
+
+.dropdown-item{
+  width: 100%;
+  color: #f0f0f0; /* UPDATED: Slightly off-white for better contrast */
+  padding: 12px 16px;
+  background: none;
+  border: none;
+  text-align: left;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s ease; /* Added transition for smooth hover */
+
+}
+
+.dropdown-item:hover{
+  background-color: rgb(55, 105, 25); /* UPDATED: Darker green for a strong hover contrast */
+}

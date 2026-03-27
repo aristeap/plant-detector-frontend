@@ -1,5 +1,9 @@
 import React, {useEffect, useState} from 'react'; 
-import './App.css';
+import '../src/styling/App.css';
+import '../src/styling/header.css';
+import '../src/styling/upload-box.css';
+import '../src/styling/button.css';
+import '../src/styling/side-buttons.css';
 import AuthModal from './components/AuthModal';
 import ArticleModal from './components/ArticleModal';
 import { upload } from '@testing-library/user-event/dist/upload';
@@ -25,22 +29,22 @@ function App() {
 
   const [isArticleOpen, setArticleOpen] = useState(false);
 
-  const [showConfetti, setShowConfetti] = useState(false);
-  const flowerImage = new Image();
-  flowerImage.src = "/flower.png";          //for the confetti function i am going to try and replace the confetti with flower icons, for that i would have to create the custom-drawFlowerConfetti
+  // const [showConfetti, setShowConfetti] = useState(false);
+  //const flowerImage = new Image();
+  //flowerImage.src = "/flower.png";          //for the confetti function i am going to try and replace the confetti with flower icons, for that i would have to create the custom-drawFlowerConfetti
   
   //states: ------------------------------------------------------------------------------------------------------------------------------------------------
 
-  useEffect(() => {
-      // console.log("inside the useEffect");  
-      if(prediction){
-        console.log("prediction had changed and it is prediction: ", prediction);
-        console.log("prediction.plantNetData.bestMatch: ", prediction.plantNetData.bestMatch);
-        console.log("prediction.plantNetData.results[0].species.scientificNameWithoutAuthor: ",prediction.plantNetData.results[0].species.scientificNameWithoutAuthor);
-        handleConfetti();
-      }
+  // useEffect(() => {
+  //     // console.log("inside the useEffect");  
+  //     if(prediction){
+  //       console.log("prediction had changed and it is prediction: ", prediction);
+  //       console.log("prediction.plantNetData.bestMatch: ", prediction.plantNetData.bestMatch);
+  //       console.log("prediction.plantNetData.results[0].species.scientificNameWithoutAuthor: ",prediction.plantNetData.results[0].species.scientificNameWithoutAuthor);
+  //       handleConfetti();
+  //     }
       
-    }, [prediction]);  
+  //   }, [prediction]);  
 
 
   //NEW: Function to handle file selection (when the user clicks on the input and uploads the file,this function will handle that)
@@ -86,11 +90,21 @@ function App() {
 
     try {
       // Use the proxy to call our PHP backend .
-      //-----------------we have not yet written the /api/identify-plant.php---------------
-      const response = await fetch('https://plant-detector-backend.onrender.com/identify-plant.php', {
+      
+      //-----------------------------------------this will be for the deployment-----------------------------//
+      // const response = await fetch('https://plant-detector-backend.onrender.com/identify-plant.php', {
+      //   method: 'POST',
+      //   body: formData,
+      // })
+      //-----------------------------------------this will be for the deployment-----------------------------//
+
+      //-----------------------------------------this will be for the local version for developing-----------------//
+      const response = await fetch('/api/identify-plant.php', {
         method: 'POST',
         body: formData,
-      });
+      })
+      //-----------------------------------------this will be for the local version-----------------------------//
+
 
       // If the response is not a success (status code 200), throw an error.
       if (!response.ok) {
@@ -150,40 +164,60 @@ function App() {
     setArticleOpen(false);
   }
 
-  const handleConfetti =() =>{
-    setShowConfetti(true);
-    setTimeout( () => {
-      setShowConfetti(false);
-    }, 10000);         //the confetti will run for 5 seconds
-  }
+  // const handleConfetti =() =>{
+  //   setShowConfetti(true);
+  //   setTimeout( () => {
+  //     setShowConfetti(false);
+  //   }, 10000);         //the confetti will run for 5 seconds
+  // }
 
-  // NEW: Custom drawShape function for confetti
-  const drawFlowerConfetti = (ctx) => {
-    // Ensure the image is loaded before attempting to draw it
-    if (flowerImage.complete){
-      // ctx.drawImage(image, x, y, width, height) ->default
-      // The x and y coordinates are usually centered for custom shapes,
-      // so we use -width/2 and -height/2.
-      const size = 20;
-      ctx.drawImage(flowerImage, -size / 2, -size/2, size, size);
+  // // NEW: Custom drawShape function for confetti
+  // const drawFlowerConfetti = (ctx) => {
+  //   // Ensure the image is loaded before attempting to draw it
+  //   if (flowerImage.complete){
+  //     // ctx.drawImage(image, x, y, width, height) ->default
+  //     // The x and y coordinates are usually centered for custom shapes,
+  //     // so we use -width/2 and -height/2.
+  //     const size = 20;
+  //     ctx.drawImage(flowerImage, -size / 2, -size/2, size, size);
 
-    }
+  //   }
 
-  }
+  // }
 
 
   return (
     <div className="App">
 
-      {showConfetti && (
+      {/* {showConfetti && (
         <Confetti numberOfPieces={1500} gravity={0.1} recycle={false} drawShape={drawFlowerConfetti}/>
-      )}
+      )} */}
+
+     {/* {showConfetti && (<div style={{ 
+            // 💡 THIS IS THE MAIN FIX
+            position: 'fixed', 
+            top: 0, 
+            left: 0, 
+            width: '100vw', 
+            height: '100vh', 
+            zIndex: 9999, // Ensure it's on top of all other elements
+        }}>
+          <Confetti numberOfPieces={1500} gravity={0.1} recycle={false} drawShape={drawFlowerConfetti}/>
+        </div> 
+      )} */}
 
       <div className="header-bar">
-        <img src="/logo.png" alt="Plant Detector Logo" className="logo" />  
-        <h1>EcoLens</h1>
+        <div className="logo-section"> 
+          <img src="/logo.png" alt="EcoLens Logo" className="logo"/>  
+          <h1>EcoLens</h1>
+        </div>
 
-        <div className="profile-container">
+        <div className="search-container"> 
+          <span className="search-icon-inside"><img src="/search-icon.png"/></span>
+          <input type='text' placeholder='Search' className="header-search-input"/>
+        </div>
+
+        {/* <div className="profile-container">
           <img src="/user.png" alt="profile-icon" className="profile-icon" onClick={profileDropdown} /> 
           {isDropdownOpen && (
             <div className="dropdown-menu">
@@ -193,8 +227,13 @@ function App() {
               </ul>
             </div>
           )}   
+        </div>   */}
 
-        </div>      
+        <div className="header-icons-group">
+          <img src='/notification-bell.png'/>
+          <img src='/user.png'/>
+        </div>
+
       </div>
   
     
@@ -202,29 +241,15 @@ function App() {
         <div className="results-page">      
           {imagePreviewUrl ? (
             <>  
-              <img src="/left-arrow.png" alt="back icon" className="back-icon" onClick={backbutton}/> 
-              <div className='uploaded-image-container'>
-                
+              <div className='uploaded-image-container'>                
                 <div className="left-side-container">
                   <img src={imagePreviewUrl} alt='uploaded plant' className='uploaded-image' />
-                    
-
-                  {/* NOT provided by the PlantNet server but from the Perenual API***********************************************/}   
-                  {/* the reason we are using empty <></> => called React Fragment, is because in the condition we cant have multiple <p> elements  */}
-                  {prediction.perenualData ? (
-                    <>
-                      <p>Sunlight: <span className="p_content" style={{fontSize: '12px'}}>{prediction.perenualData.sunlight_details || null}</span></p>
-                      
-                    </>  
-                  ): (
-                    <p style={{ fontStyle : 'italic'}}>The extra data from the Perenual API are not anymore available for today(free-usage-limit: 100 API calls/day), they will be again tomorrow!</p>
-                  )}  
-                    
+                  <button className="back-icon" onClick={backbutton}><span className="arrow">←</span>Back</button>
+                  
 
                 </div>
 
                 <div className="right-side-container">
-
 
                   {prediction.plantNetData ? (
                     
@@ -234,7 +259,7 @@ function App() {
 
                       {/* provided by the PlantNet server */}
                       {/* the map is used to iterate arrays:  */}
-                      <p>Common names: 
+                      <p><img src="/tick.png" alt="tick icon" className="tick-icon"/>Common names: 
                         <span className="p_content">
                           {prediction.plantNetData.results[0].species.commonNames.map((name, index)=>
                             <span key={index}>
@@ -246,55 +271,110 @@ function App() {
                           }
                         </span>
                       </p>
-
-
-                      {/* provided by the PlantNet server ************************************************************************/}
-                      <p>Confidence Score: <span className="p_content">{ (prediction.plantNetData.results[0].score) * 100 }%</span></p>
-                      {/* provided by the PlantNet server ************************************************************************/}
-                      <p>Genus: <span className="p_content">{prediction.plantNetData.results[0].species.genus.scientificNameWithoutAuthor}</span></p>
                     </>  
                     ) : (
                       <p style={{ fontStyle : 'italic'}}>No data from the PlantNet</p>
 
                       )
                   } 
-                  
 
-
-
-                  {prediction.perenualData ? (
+                  {prediction.permapeopleData && (
                     <>
-                      {/* NOT provided by the PlantNet server but i cant find it in the perenaul either*******************************/}
-                      {/* <p>Origin: <span className="p_content">{prediction.perenualData.origin || null}</span></p> */}
-                    
-                      {/* NOT provided by the PlantNet server but from the Perenual API***********************************************/}     
-                      <p>Watering: <span className="p_content" style={{fontSize: '14px'}}>{prediction.perenualData.watering_details || null}</span></p>
-
-                      {/* NOT provided by the PlantNet server but from the Perenual API***********************************************/}     
-                      <p>Pruning: <span className="p_content" style={{fontSize: '14px'}}>{prediction.perenualData.pruning_details || null}</span></p>
-
+                      <p><img src="/tick.png" alt="tick icon" className="tick-icon"/>Edible:
+                        <span className="p_content">
+                          {prediction.permapeopleData["Edible"] || "Unknown"}
+                        </span>
+                      </p>
+                      <p><img src="/tick.png" alt="tick icon" className="tick-icon"/>Edible parts:
+                        <span className="p_content">
+                          {prediction.permapeopleData["Edible parts"] || "Unknown"}
+                        </span>
+                      </p>
+                      <p><img src="/tick.png" alt="tick icon" className="tick-icon"/>Edible uses:
+                        <span className="p_content">
+                          {prediction.permapeopleData["Edible uses"] || "Unknown"}
+                        </span>
+                      </p>
+                      <p><img src="/tick.png" alt="tick icon" className="tick-icon"/>Height:
+                        <span className="p_content">
+                          {prediction.permapeopleData["Height"] || "Unknown"}
+                        </span>
+                      </p>
+                      <p><img src="/tick.png" alt="tick icon" className="tick-icon"/>Growth:
+                        <span className="p_content">
+                          {prediction.permapeopleData["Growth"] || "Unknown"}
+                        </span>
+                      </p>
+                      <p><img src="/tick.png" alt="tick icon" className="tick-icon"/>Light requirement:
+                        <span className="p_content">
+                          {prediction.permapeopleData["Light requirement"] || "Unknown"}
+                        </span>
+                      </p>
+                      <p><img src="/tick.png" alt="tick icon" className="tick-icon"/>Water requirement: 
+                        <span className="p_content">
+                          {prediction.permapeopleData["Water requirement"] || "Unknown"}
+                        </span>
+                      </p>
+                      <p><img src="/tick.png" alt="tick icon" className="tick-icon"/>Soil type:
+                        <span className="p_content">
+                          {prediction.permapeopleData["Soil type"] || "Unknown"}
+                        </span>
+                      </p>
+                      <p><img src="/tick.png" alt="tick icon" className="tick-icon"/>Life cycle:
+                        <span className="p_content">
+                          {prediction.permapeopleData["Life cycle"] || "Unknown"}
+                        </span>
+                      </p>
+                      <p><img src="/tick.png" alt="tick icon" className="tick-icon"/>Native to:
+                        <span className="p_content">
+                          {prediction.permapeopleData["Native to"] 
+                            ? prediction.permapeopleData["Native to"].split(',').slice(0, 6).join(', ') + (prediction.permapeopleData["Native to"].split(',').length > 6 ? ', ...' : '')
+                            : "Unknown"}
+                        </span>
+                      </p>
+                      <p><img src="/tick.png" alt="tick icon" className="tick-icon"/>Introduced into:
+                        <span className="p_content">
+                          {prediction.permapeopleData["Introduced into"] 
+                            ? prediction.permapeopleData["Introduced into"].split(',').slice(0, 6).join(', ') + (prediction.permapeopleData["Introduced into"].split(',').length > 6 ? ', ...' : '')
+                            : "Unknown"}
+                        </span>
+                      </p>
+                      <p><img src="/tick.png" alt="tick icon" className="tick-icon"/>Warning:
+                        <span className="p_content">
+                          {prediction.permapeopleData["Warning"] || "Unknown"}
+                        </span>
+                      </p>
                     </>
-                  ) : (
-                      <p style={{ fontStyle : 'italic'}}>The extra data from the Perenual API are not anymore available for today(free-usage-limit: 100 API calls/day), they will be again tomorrow!</p>
-
-                  )}  
-                    
+                  )}
+                      
 
                 </div>
               </div>     
 
-              <div className='extra-buttons-container'>      
 
+              <div className="sidebar-container">   
+                <h3 className="sidebar-title">Learn More</h3>
                 {/* extra buttons that will use a relational database */}
-                <button className="extra-button" onClick={openArticleModal}>Related Articles</button>
-                
-                <button className="extra-button">User's Comments</button>
+                <div className='extra-buttons-container'> 
+                  <button className="extra-button" onClick={openArticleModal}>
+                    <span>📰</span> 
+                    <span>Related Articles</span>
+                    <span>›</span>
+                  </button>
+                  
+                  <button className="extra-button">
+                    <span>💬</span>
+                    <span>User's Comments</span>
+                    <span>›</span>
+                  </button>
 
-                <button className="extra-button">More images</button>
-
-              </div>    
-
-
+                  <button className="extra-button">
+                    <span>🖼️</span>
+                    <span>More Images</span>
+                    <span>›</span>
+                  </button>
+                </div>    
+              </div>  
             </> 
             ) : (
               <p>No image</p>

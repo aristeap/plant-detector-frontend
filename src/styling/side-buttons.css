@@ -1,0 +1,56 @@
+
+.extra-buttons-container{
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 280px;
+  margin-top: 40px;
+
+}
+
+.sidebar-title {
+  font-size: 1.1rem;
+  color:#2d4f1e;
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+.extra-button{  
+  display: flex;
+  align-items: center;  /* Vertical center */
+  justify-content: space-between; /* MAGIC: Pushes icons to the edges and text in middle */
+  background-color: #76a04d;
+  color: white;
+  padding: 12px 18px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar-title{
+    font-size: 1.6rem;
+}
+
+.sidebar-container {
+  /* This creates that 'faded' glassy look */
+  background: rgba(255, 255, 255, 0.4); 
+  backdrop-filter: blur(10px); /* This blurs the background image behind the sidebar */
+  margin-top: 30px;
+  /* Shape and Spacing */
+  padding: 30px 20px;
+  border-radius: 20px;
+  width: 320px; /* Fixed width so it looks like a column */
+  height: 630px;  /* Border: A faint white border makes it look like real glass */
+    
+  /* This ensures the sidebar doesn't grow longer than the main card */
+  align-self: stretch; 
+}
+
+
+
+.extra-button:hover{
+  transform : scale(1.10);  /*slightly enlarge on hover  */
+
+}

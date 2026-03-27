@@ -1,0 +1,66 @@
+
+.back-icon{
+  background-color:#76a04d;
+  color: white;
+  
+  /* 2. Shape & Border */
+  border: none;
+  border-radius: 8px;      /* Matches the rounded corners of your main card */
+  padding: 10px 14px;      /* Generous padding makes it easy to click */
+  
+  /* 3. Layout */
+  display: flex;
+  align-items: center;
+  gap: 8px;                /* Space between the arrow and the word 'Back' */
+  cursor: pointer;
+  width: 100px;  
+  /* 4. Font Styling */
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin-top: 150px;
+  /* 6. Smoothness */
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+}
+
+.back-icon:hover {
+  transform : scale(1.10);  /*slightly enlarge on hover  */
+}
+
+.back-icon .arrow{
+  font-size: 1.2rem;
+  line-height: 0;
+}
+
+.extra-buttons-container{
+ display: flex;
+flex-direction: column;
+
+}
+
+/* 2. The Button Styling */
+.extra-button {
+  display: flex;
+  align-items: center;  /* Vertical center */
+  justify-content: space-between; /* MAGIC: Pushes icons to the edges and text in middle */
+  
+  background-color: #76a04d;
+  color: white;
+  padding: 12px 18px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.extra-button:hover{
+  transform : scale(1.10);  /*slightly enlarge on hover  */
+
+}
+
+.book-plant-icon{
+  width: 20px;
+  height: 20px;
+}
