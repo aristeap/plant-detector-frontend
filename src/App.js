@@ -92,17 +92,17 @@ function App() {
       // Use the proxy to call our PHP backend .
       
       //-----------------------------------------this will be for the deployment-----------------------------//
-      // const response = await fetch('https://plant-detector-backend.onrender.com/identify-plant.php', {
-      //   method: 'POST',
-      //   body: formData,
-      // })
-      //-----------------------------------------this will be for the deployment-----------------------------//
-
-      //-----------------------------------------this will be for the local version for developing-----------------//
-      const response = await fetch('/api/identify-plant.php', {
+      const response = await fetch('https://plant-detector-backend.onrender.com/identify-plant.php', {
         method: 'POST',
         body: formData,
       })
+      //-----------------------------------------this will be for the deployment-----------------------------//
+
+      //-----------------------------------------this will be for the local version for developing-----------------//
+      // const response = await fetch('/api/identify-plant.php', {
+      //   method: 'POST',
+      //   body: formData,
+      // })
       //-----------------------------------------this will be for the local version-----------------------------//
 
 
